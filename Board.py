@@ -28,9 +28,7 @@ class GameBoard:
         temp.append([0] * (GameBoard.BOARD_SIZE + 2))
         for i in range(1, GameBoard.BOARD_SIZE + 1):
             for j in range(1, GameBoard.BOARD_SIZE + 1):
-                neighbors = [temp[i][j + 1], temp[i][j - 1], temp[i - 1][j], temp[i + 1][j]]
-                uniq = set(neighbors)
-                if temp[i][j] in uniq:
+                if temp[i][j] == temp[i][j + 1] or temp[i][j] == temp[i][j - 1] or temp[i][j] == temp[i - 1][j] or temp[i][j] == temp[i + 1][j]:
                     return False
         return True
 
