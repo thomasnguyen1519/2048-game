@@ -7,11 +7,14 @@ def main():
     play_game()
 
 def intro():
+    print()
     print('This is a program that plays the 2048 game.')
-    print('You combine like-numbered blocks on the game board')
+    print('You combine like-numbered blocks on the game board,')
     print('and the objective is to make the illusive 2048 block.')
+    print('Try to accumulate the highest score if that is too easy.')
     print('It currently runs in the console, but don\'t worry')
     print('it will be ported over to a GUI soon :).')
+    print()
     print('Let\'s start playing!!')
     print()
 
@@ -32,12 +35,13 @@ def play_game():
         move = str(input())
         while move != 'w' and move != 'a' and move != 's' and move != 'd':
             print('Invalid move.')
+            print()
             print('What move would you like to make (', 'w, ', 'a, ', 's, ', 'd)? ', sep = "", end = "")
             move = str(input())
         print()
         board.move(move)
     print('Game over!!', end = '\n\n')
-    print('Your score was', board.score())
+    print('Your score was', board.score(), '!')
 
 if __name__ == '__main__':
     main()
