@@ -18,7 +18,7 @@ class GameBoard:
     def is_game_over(self):
         if self.has_zeros():
             return False
-        # check if all the neighbors of each element are different
+        # check if all the neighbors are different to the element
         temp = []
         temp.append([0] * (GameBoard.BOARD_SIZE + 2))
         for row in self.__board:
@@ -30,7 +30,7 @@ class GameBoard:
             for j in range(1, GameBoard.BOARD_SIZE + 1):
                 neighbors = [temp[i][j + 1], temp[i][j - 1], temp[i - 1][j], temp[i + 1][j]]
                 uniq = set(neighbors)
-                if temp[i][j] in neighbors:
+                if temp[i][j] in uniq:
                     return False
         return True
 
@@ -68,14 +68,11 @@ class GameBoard:
     def cascade_left(self):
         # bubble zeros to the right, add left, append extra zeros
         for row in self.__board:
-            count = 0
-            i = 0
-            while i < GameBoard.BOARD_SIZE - count:
+            i = GameBoard.BOARD_SIZE - 1
+            while i >= 0:
                 if row[i] == 0:
-                    count += 1
                     row.append(row.pop(i))
-                    i -= 1
-                i += 1
+                i -= 1
         for row in self.__board:
             for i in range(GameBoard.BOARD_SIZE - 1):
                 if row[i + 1] == 0:
@@ -90,7 +87,6 @@ class GameBoard:
         # bubble zeros to the left, add right, insert extra zeros
         for row in self.__board:
             i = 0
-            # try back to front
             while i < GameBoard.BOARD_SIZE:
                 if row[i] == 0:
                     row.insert(row.pop(i), 0)
@@ -106,14 +102,17 @@ class GameBoard:
                     row.insert(0, 0)
 
     def cascade_up(self):
-        self.__board = [[self.__board[i][j] for i in range(len(self.__board))] for j in range(len(self.__board))]
+        self.__board = self.__transpose()
         self.cascade_left()
-        self.__board = [[self.__board[i][j] for i in range(len(self.__board))] for j in range(len(self.__board))]
+        self.__board = self.__transpose()
 
     def cascade_down(self):
-        self.__board = [[self.__board[i][j] for i in range(len(self.__board))] for j in range(len(self.__board))]
+        self.__board = self.__transpose()
         self.cascade_right()
-        self.__board = [[self.__board[i][j] for i in range(len(self.__board))] for j in range(len(self.__board))]
+        self.__board = self.__transpose()
+
+    def __transpose(self):
+        return [[self.__board[i][j] for i in range(len(self.__board))] for j in range(len(self.__board))]
 
     def __str__(self):
         return "\n".join([str(row) for row in self.__board])
