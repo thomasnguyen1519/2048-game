@@ -36,7 +36,7 @@ def play_game():
         board.move(move)
     print(board, end = '\n\n')
     print('Game over!!', end = '\n\n')
-    print('Your score was ' + board.score() + '!')
+    print('Your score was ' + str(board.score()) + '!')
 
 if __name__ == '__main__':
     main()
