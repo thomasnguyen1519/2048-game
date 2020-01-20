@@ -50,8 +50,8 @@ class GameBoard:
             self.__board[position[0]][position[1]] += num
             self.__score += num
 
-# TODO: (bug) move doesnt change board state -> shouldnt place a new block
     def move(self, ch):
+        orig = [row[:] for row in self.__board]
         if ch == 'w':
             self.cascade_up()
         elif ch == 's':
@@ -60,7 +60,7 @@ class GameBoard:
             self.cascade_left()
         elif ch == 'd':
             self.cascade_right()
-        if self.has_zeros():
+        if self.has_zeros() and self.__board != orig:
             self.__place_block()
 
     def cascade_left(self):
