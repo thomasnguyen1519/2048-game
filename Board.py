@@ -15,6 +15,9 @@ class GameBoard:
     def score(self):
         return self.__score
 
+    def largest_block(self):
+        return max([max(row) for row in self.__board])
+
     def is_game_over(self):
         if self.has_zeros():
             return False
